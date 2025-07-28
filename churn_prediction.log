@@ -1,0 +1,483 @@
+2025-07-26 22:34:32,031 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-26 22:34:32,031 - root - INFO - 
+=== Data Loading ===
+2025-07-26 22:34:32,031 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/customer_churn.csv
+2025-07-26 22:34:32,032 - root - ERROR - Error loading data: [Errno 2] No such file or directory: '/Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/customer_churn.csv'
+2025-07-26 22:34:32,032 - root - ERROR - Pipeline failed: Failed to load data
+2025-07-26 22:38:58,751 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-26 22:38:58,751 - root - INFO - 
+=== Data Loading ===
+2025-07-26 22:38:58,751 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-26 22:38:58,754 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-26 22:38:58,754 - root - INFO - 
+=== Data Preprocessing ===
+2025-07-26 22:38:58,754 - root - INFO - Starting data preprocessing...
+2025-07-26 22:38:58,754 - root - INFO - Detected balanced class imbalance (churn rate: 52.60%)
+2025-07-26 22:38:58,763 - root - INFO - Data preprocessing completed successfully
+2025-07-26 22:38:58,763 - root - INFO - 
+=== Model Training ===
+2025-07-26 22:38:58,763 - root - INFO - Initializing models with imbalance handling
+2025-07-26 22:38:58,763 - root - INFO - 
+Training Logistic Regression...
+2025-07-26 22:38:58,769 - root - INFO - Logistic Regression Training F1 Score: 0.6429
+2025-07-26 22:38:58,769 - root - INFO - 
+Training Random Forest...
+2025-07-26 22:38:58,902 - root - INFO - Random Forest Training F1 Score: 1.0000
+2025-07-26 22:38:58,902 - root - INFO - 
+Training Gradient Boosting...
+2025-07-26 22:38:59,067 - root - INFO - Gradient Boosting Training F1 Score: 0.9013
+2025-07-26 22:38:59,067 - root - INFO - 
+Training SVM...
+2025-07-26 22:38:59,162 - root - INFO - SVM Training F1 Score: 0.7983
+2025-07-26 22:38:59,163 - root - INFO - 
+Best model: Random Forest with F1 score: 1.0000
+2025-07-26 22:38:59,163 - root - INFO - 
+=== Model Evaluation ===
+2025-07-26 22:38:59,163 - root - INFO - 
+Evaluating best model on test data...
+2025-07-26 22:38:59,176 - root - INFO - Accuracy: 0.4700
+2025-07-26 22:38:59,176 - root - INFO - Precision: 0.4957
+2025-07-26 22:38:59,176 - root - INFO - Recall: 0.5429
+2025-07-26 22:38:59,176 - root - INFO - F1: 0.5182
+2025-07-26 22:38:59,176 - root - INFO - Roc_auc: 0.4696
+2025-07-26 22:38:59,176 - root - INFO - 
+=== Saving Results ===
+2025-07-26 22:38:59,179 - root - INFO - Model saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/model/churn_model.pkl
+2025-07-26 22:38:59,179 - root - INFO - Metrics saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/model/metrics.json
+2025-07-26 22:38:59,179 - root - INFO - 
+Pipeline completed successfully.
+2025-07-27 17:36:39,397 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:36:39,397 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:36:39,397 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:36:39,400 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:36:39,543 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:43:58,013 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:43:58,014 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:43:58,014 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:43:58,016 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:44:05,003 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:45:57,952 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:45:57,953 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:45:57,953 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:45:57,954 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:46:03,471 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:46:20,920 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:46:20,920 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:46:20,920 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:46:20,922 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:46:33,283 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:47:08,608 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:47:08,608 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:47:08,608 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:47:08,611 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:47:22,187 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:47:34,759 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:47:34,759 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:47:34,759 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:47:34,761 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:47:54,208 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:48:18,055 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:48:18,055 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:48:18,055 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:48:18,057 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:48:27,405 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:48:40,992 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:48:40,992 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:48:40,992 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:48:40,993 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:48:44,644 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:48:59,643 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:48:59,643 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:48:59,643 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:48:59,645 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:49:02,472 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:49:16,230 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:49:16,230 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:49:16,230 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:49:16,232 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:49:18,816 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:49:23,787 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:49:23,788 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:49:23,788 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:49:23,789 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:49:30,532 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:51:10,163 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:51:10,164 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:51:10,164 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:51:10,165 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:51:16,941 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:52:07,289 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:52:07,290 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:52:07,290 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:52:07,291 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:52:09,693 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:52:14,613 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:52:14,613 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:52:14,613 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:52:14,615 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:52:16,941 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 17:52:21,782 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 17:52:21,782 - root - INFO - 
+=== Data Loading ===
+2025-07-27 17:52:21,782 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 17:52:21,784 - root - INFO - Data loaded successfully. Shape: (1000, 15)
+2025-07-27 17:52:30,095 - root - ERROR - Pipeline failed: name 'y' is not defined
+2025-07-27 21:29:20,130 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 21:29:20,130 - root - INFO - 
+=== Data Loading ===
+2025-07-27 21:29:20,130 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 21:29:20,134 - root - ERROR - Error loading csv file: "['customer_id'] not found in axis"
+2025-07-27 21:29:20,134 - root - ERROR - Pipeline failed: Failed to load data
+2025-07-27 21:30:04,968 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 21:30:04,968 - root - INFO - 
+=== Data Loading ===
+2025-07-27 21:30:04,968 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 21:30:04,970 - root - ERROR - Error loading csv file: "['customer_id'] not found in axis"
+2025-07-27 21:30:04,970 - root - ERROR - Pipeline failed: Failed to load data
+2025-07-27 21:32:58,109 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 21:32:58,109 - root - INFO - 
+=== Data Loading ===
+2025-07-27 21:32:58,109 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 21:32:58,113 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-27 21:32:58,113 - root - INFO - 
+=== Data Preprocessing ===
+2025-07-27 21:32:58,113 - root - INFO - Starting data preprocessing...
+2025-07-27 21:32:58,114 - root - INFO - No missing values found in numerical columns
+2025-07-27 21:32:58,115 - root - INFO - No outliers detected in Annual_Income
+2025-07-27 21:32:58,116 - root - INFO - No outliers detected in Total_Spend
+2025-07-27 21:32:58,117 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-27 21:32:58,117 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-27 21:32:58,118 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-27 21:32:58,328 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-27 21:32:58,337 - root - INFO - Data preprocessing completed successfully
+2025-07-27 21:32:58,337 - root - INFO - 
+=== Model Training ===
+2025-07-27 21:32:58,337 - root - ERROR - Pipeline failed: 'DataPrep' object has no attribute 'get_imbalance_level'
+2025-07-27 21:34:18,843 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 21:34:18,843 - root - INFO - 
+=== Data Loading ===
+2025-07-27 21:34:18,843 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 21:34:18,845 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-27 21:34:18,845 - root - INFO - 
+=== Data Preprocessing ===
+2025-07-27 21:34:18,845 - root - INFO - Starting data preprocessing...
+2025-07-27 21:34:18,846 - root - INFO - No missing values found in numerical columns
+2025-07-27 21:34:18,847 - root - INFO - No outliers detected in Annual_Income
+2025-07-27 21:34:18,847 - root - INFO - No outliers detected in Total_Spend
+2025-07-27 21:34:18,848 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-27 21:34:18,848 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-27 21:34:18,849 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-27 21:34:19,048 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-27 21:34:19,055 - root - INFO - Data preprocessing completed successfully
+2025-07-27 21:34:19,055 - root - INFO - 
+=== Model Training ===
+2025-07-27 21:34:19,055 - root - INFO - Initializing standard models
+2025-07-27 21:34:19,055 - root - INFO - 
+Training Logistic Regression...
+2025-07-27 21:34:19,060 - root - INFO - Logistic Regression Training F1 Score: 0.6417
+2025-07-27 21:34:19,061 - root - INFO - 
+Training Random Forest...
+2025-07-27 21:34:19,182 - root - INFO - Random Forest Training F1 Score: 1.0000
+2025-07-27 21:34:19,183 - root - INFO - 
+Training Gradient Boosting...
+2025-07-27 21:34:19,326 - root - INFO - Gradient Boosting Training F1 Score: 0.9034
+2025-07-27 21:34:19,326 - root - INFO - 
+Training SVM...
+2025-07-27 21:34:19,419 - root - INFO - SVM Training F1 Score: 0.7912
+2025-07-27 21:34:19,419 - root - INFO - 
+Best model: Random Forest with F1 score: 1.0000
+2025-07-27 21:34:19,419 - root - INFO - 
+=== Model Evaluation ===
+2025-07-27 21:34:19,419 - root - INFO - 
+Evaluating best model on test data...
+2025-07-27 21:34:19,433 - root - INFO - Accuracy: 0.5150
+2025-07-27 21:34:19,433 - root - INFO - Precision: 0.5345
+2025-07-27 21:34:19,433 - root - INFO - Recall: 0.5905
+2025-07-27 21:34:19,433 - root - INFO - F1: 0.5611
+2025-07-27 21:34:19,433 - root - INFO - Roc_auc: 0.4798
+2025-07-27 21:34:19,433 - root - INFO - 
+=== Saving Results ===
+2025-07-27 21:34:19,435 - root - INFO - Model saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/churn_model.pkl
+2025-07-27 21:34:19,435 - root - INFO - Metrics saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/metrics.json
+2025-07-27 21:34:19,435 - root - INFO - 
+Pipeline completed successfully.
+2025-07-27 23:23:25,215 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-27 23:23:25,215 - root - INFO - 
+=== Data Loading ===
+2025-07-27 23:23:25,215 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-27 23:23:25,220 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-27 23:23:25,220 - root - INFO - 
+=== Data Preprocessing ===
+2025-07-27 23:23:25,220 - root - INFO - Starting data preprocessing...
+2025-07-27 23:23:25,221 - root - INFO - No missing values found in numerical columns
+2025-07-27 23:23:25,222 - root - INFO - No outliers detected in Annual_Income
+2025-07-27 23:23:25,222 - root - INFO - No outliers detected in Total_Spend
+2025-07-27 23:23:25,223 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-27 23:23:25,223 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-27 23:23:25,224 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-27 23:23:25,471 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-27 23:23:25,479 - root - INFO - Data preprocessing completed successfully
+2025-07-27 23:23:25,479 - root - ERROR - Pipeline failed: 'DataPrep' object has no attribute 'get_all_data'
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 31, in main
+    X, y = data_prep.get_all_data()
+AttributeError: 'DataPrep' object has no attribute 'get_all_data'
+2025-07-28 13:03:05,832 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 13:03:05,832 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 13:03:05,838 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 13:03:05,838 - root - INFO - Starting data preprocessing...
+2025-07-28 13:03:05,839 - root - INFO - No missing values found in numerical columns
+2025-07-28 13:03:05,840 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 13:03:05,841 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 13:03:05,841 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 13:03:05,842 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 13:03:05,843 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 13:03:06,079 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 13:03:06,086 - root - INFO - Data preprocessing completed successfully
+2025-07-28 13:03:06,087 - root - ERROR - Pipeline failed: X has 18 features, but ColumnTransformer is expecting 13 features as input.
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 33, in main
+    data_prep.preprocessor.transform(X_test),
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/utils/_set_output.py", line 319, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/compose/_column_transformer.py", line 1094, in transform
+    _check_n_features(self, X, reset=False)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/utils/validation.py", line 2829, in _check_n_features
+    raise ValueError(
+ValueError: X has 18 features, but ColumnTransformer is expecting 13 features as input.
+2025-07-28 13:08:45,902 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 13:08:45,902 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 13:08:45,904 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 13:08:45,904 - root - INFO - Starting data preprocessing...
+2025-07-28 13:08:45,905 - root - INFO - No missing values found in numerical columns
+2025-07-28 13:08:45,906 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 13:08:45,906 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 13:08:45,907 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 13:08:45,907 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 13:08:45,909 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 13:08:46,158 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 13:08:46,164 - root - INFO - Data preprocessing completed successfully
+2025-07-28 13:08:46,164 - root - ERROR - No model trained yet.
+2025-07-28 13:08:46,164 - root - ERROR - Pipeline failed: X has 18 features, but ColumnTransformer is expecting 13 features as input.
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 39, in main
+    data_prep.preprocessor.transform(X_test),
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/utils/_set_output.py", line 319, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/compose/_column_transformer.py", line 1094, in transform
+    _check_n_features(self, X, reset=False)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/utils/validation.py", line 2829, in _check_n_features
+    raise ValueError(
+ValueError: X has 18 features, but ColumnTransformer is expecting 13 features as input.
+2025-07-28 13:08:55,999 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 13:08:55,999 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 13:08:56,001 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 13:08:56,001 - root - INFO - Starting data preprocessing...
+2025-07-28 13:08:56,002 - root - INFO - No missing values found in numerical columns
+2025-07-28 13:08:56,002 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 13:08:56,003 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 13:08:56,003 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 13:08:56,003 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 13:08:56,005 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 13:08:56,238 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 13:08:56,244 - root - INFO - Data preprocessing completed successfully
+2025-07-28 13:08:56,244 - root - ERROR - No model trained yet.
+2025-07-28 13:08:56,244 - root - ERROR - Pipeline failed: X has 18 features, but ColumnTransformer is expecting 13 features as input.
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 39, in main
+    data_prep.preprocessor.transform(X_test),
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/utils/_set_output.py", line 319, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/compose/_column_transformer.py", line 1094, in transform
+    _check_n_features(self, X, reset=False)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/sklearn/utils/validation.py", line 2829, in _check_n_features
+    raise ValueError(
+ValueError: X has 18 features, but ColumnTransformer is expecting 13 features as input.
+2025-07-28 13:21:52,175 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 13:21:52,175 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 13:21:52,180 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 13:21:52,180 - root - INFO - Starting data preprocessing...
+2025-07-28 13:21:52,181 - root - INFO - No missing values found in numerical columns
+2025-07-28 13:21:52,182 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 13:21:52,182 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 13:21:52,183 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 13:21:52,183 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 13:21:52,184 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 13:21:52,422 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 13:21:52,429 - root - INFO - Data preprocessing completed successfully
+2025-07-28 13:21:52,429 - root - ERROR - No model trained yet.
+2025-07-28 13:21:52,429 - root - ERROR - Pipeline failed: Shape of passed values is (200, 18), indices imply (200, 10)
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 38, in main
+    X_test_processed = pd.DataFrame(
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/frame.py", line 827, in __init__
+    mgr = ndarray_to_mgr(
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py", line 336, in ndarray_to_mgr
+    _check_values_indices_shape_match(values, index, columns)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py", line 420, in _check_values_indices_shape_match
+    raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}")
+ValueError: Shape of passed values is (200, 18), indices imply (200, 10)
+2025-07-28 13:39:50,952 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 13:39:50,953 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 13:39:50,957 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 13:39:50,957 - root - INFO - Starting data preprocessing...
+2025-07-28 13:39:50,958 - root - INFO - No missing values found in numerical columns
+2025-07-28 13:39:50,959 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 13:39:50,960 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 13:39:50,960 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 13:39:50,960 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 13:39:50,962 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 13:39:51,206 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 13:39:51,213 - root - INFO - Data preprocessing completed successfully
+2025-07-28 13:39:51,213 - root - ERROR - No model trained yet.
+2025-07-28 13:39:51,213 - root - ERROR - Pipeline failed: Shape of passed values is (200, 18), indices imply (200, 10)
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 38, in main
+    X_test_processed = pd.DataFrame(
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/frame.py", line 827, in __init__
+    mgr = ndarray_to_mgr(
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py", line 336, in ndarray_to_mgr
+    _check_values_indices_shape_match(values, index, columns)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py", line 420, in _check_values_indices_shape_match
+    raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}")
+ValueError: Shape of passed values is (200, 18), indices imply (200, 10)
+2025-07-28 13:52:47,311 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 13:52:47,311 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 13:52:47,318 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 13:52:47,318 - root - INFO - Starting data preprocessing...
+2025-07-28 13:52:47,320 - root - INFO - No missing values found in numerical columns
+2025-07-28 13:52:47,321 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 13:52:47,322 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 13:52:47,322 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 13:52:47,322 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 13:52:47,324 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 13:52:47,564 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 13:52:47,571 - root - INFO - Data preprocessing completed successfully
+2025-07-28 13:52:47,571 - root - ERROR - No model trained yet.
+2025-07-28 13:52:47,571 - root - ERROR - Pipeline failed: Shape of passed values is (200, 18), indices imply (200, 10)
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 38, in main
+    X_test_processed = pd.DataFrame(
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/frame.py", line 827, in __init__
+    mgr = ndarray_to_mgr(
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py", line 336, in ndarray_to_mgr
+    _check_values_indices_shape_match(values, index, columns)
+  File "/Users/rafikamomin/PycharmProjects/churn_example/.venv/lib/python3.9/site-packages/pandas/core/internals/construction.py", line 420, in _check_values_indices_shape_match
+    raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}")
+ValueError: Shape of passed values is (200, 18), indices imply (200, 10)
+2025-07-28 13:59:33,879 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 13:59:33,879 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 13:59:33,881 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 13:59:33,881 - root - INFO - Starting data preprocessing...
+2025-07-28 13:59:33,882 - root - INFO - No missing values found in numerical columns
+2025-07-28 13:59:33,883 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 13:59:33,883 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 13:59:33,884 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 13:59:33,884 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 13:59:33,885 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 13:59:34,118 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 13:59:34,124 - root - INFO - Data preprocessing completed successfully
+2025-07-28 13:59:34,124 - root - ERROR - No model trained yet.
+2025-07-28 13:59:34,124 - root - ERROR - Pipeline failed: 'NoneType' object has no attribute 'named_steps'
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 42, in main
+    churn_model._analyze_shap(X_test_processed, best_model.named_steps['classifier'])
+AttributeError: 'NoneType' object has no attribute 'named_steps'
+2025-07-28 14:33:55,245 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 14:33:55,246 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 14:33:55,252 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 14:33:55,252 - root - INFO - Starting data preprocessing...
+2025-07-28 14:33:55,254 - root - INFO - No missing values found in numerical columns
+2025-07-28 14:33:55,255 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 14:33:55,255 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 14:33:55,256 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 14:33:55,256 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 14:33:55,257 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 14:33:55,502 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 14:33:55,510 - root - INFO - Data preprocessing completed successfully
+2025-07-28 14:33:55,510 - root - ERROR - No model trained yet.
+2025-07-28 14:33:55,510 - root - ERROR - Pipeline failed: 'NoneType' object has no attribute 'named_steps'
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 42, in main
+    churn_model._analyze_shap(X_test_processed, best_model.named_steps['classifier'])
+AttributeError: 'NoneType' object has no attribute 'named_steps'
+2025-07-28 14:44:49,755 - root - INFO - Starting customer churn prediction pipeline...
+2025-07-28 14:44:49,756 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 14:44:49,760 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 14:44:49,760 - root - INFO - Starting data preprocessing...
+2025-07-28 14:44:49,762 - root - INFO - No missing values found in numerical columns
+2025-07-28 14:44:49,763 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 14:44:49,763 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 14:44:49,763 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 14:44:49,764 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 14:44:49,765 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 14:44:49,999 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 14:44:50,006 - root - INFO - Data preprocessing completed successfully
+2025-07-28 14:44:50,006 - root - INFO - Initializing models for cross-validation
+2025-07-28 14:44:50,006 - root - INFO - 
+Training Logistic Regression...
+2025-07-28 14:44:50,011 - root - INFO - Logistic Regression Training F1 Score: 0.5683
+2025-07-28 14:44:50,011 - root - INFO - 
+Training Random Forest...
+2025-07-28 14:44:50,132 - root - INFO - Random Forest Training F1 Score: 1.0000
+2025-07-28 14:44:50,132 - root - INFO - 
+Training Gradient Boosting...
+2025-07-28 14:44:50,272 - root - INFO - Gradient Boosting Training F1 Score: 0.9034
+2025-07-28 14:44:50,272 - root - INFO - 
+Training SVM...
+2025-07-28 14:44:50,366 - root - INFO - SVM Training F1 Score: 0.7899
+2025-07-28 14:44:50,366 - root - INFO - 
+Best model: Random Forest with F1 score: 1.0000
+2025-07-28 14:44:50,366 - root - INFO - 
+Evaluating best model on test data...
+2025-07-28 14:44:50,380 - root - WARNING - SHAP analysis skipped: 'NoneType' object has no attribute 'transformers_'
+2025-07-28 14:44:50,380 - root - ERROR - Pipeline failed: 'NoneType' object has no attribute 'named_steps'
+Traceback (most recent call last):
+  File "/Users/rafikamomin/PycharmProjects/churn_example/main.py", line 44, in main
+    churn_model._analyze_shap(X_test_processed, best_model.named_steps['classifier'])
+AttributeError: 'NoneType' object has no attribute 'named_steps'
+2025-07-28 15:21:45,995 - root - INFO - Starting churn prediction pipeline
+2025-07-28 15:21:45,995 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 15:21:46,000 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 15:21:46,000 - root - INFO - Starting data preprocessing...
+2025-07-28 15:21:46,001 - root - INFO - No missing values found in numerical columns
+2025-07-28 15:21:46,002 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 15:21:46,003 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 15:21:46,003 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 15:21:46,003 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 15:21:46,005 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 15:21:46,261 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 15:21:46,268 - root - INFO - Data preprocessing completed successfully
+2025-07-28 15:21:46,268 - root - INFO - Initializing models with parameter grids
+2025-07-28 15:21:46,268 - root - INFO - 
+Training Logistic Regression with CV...
+2025-07-28 15:21:47,109 - root - INFO - Best F1: 0.5121
+2025-07-28 15:21:47,110 - root - INFO - 
+Training Random Forest with CV...
+2025-07-28 15:21:48,340 - root - INFO - Best F1: 0.5806
+2025-07-28 15:21:48,340 - root - INFO - 
+Training Gradient Boosting with CV...
+2025-07-28 15:21:49,703 - root - INFO - Best F1: 0.6139
+2025-07-28 15:21:49,703 - root - INFO - 
+Training SVM with CV...
+2025-07-28 15:21:50,352 - root - INFO - Best F1: 0.6190
+2025-07-28 15:21:50,352 - root - INFO - 
+Selected SVM (F1=0.6190)
+2025-07-28 15:21:50,370 - root - WARNING - SHAP not supported for SVC
+2025-07-28 15:21:50,371 - root - INFO - Model saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/churn_model.pkl
+2025-07-28 15:21:50,371 - root - INFO - Metrics saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/metrics.json
+2025-07-28 15:21:50,371 - root - INFO - Pipeline completed successfully
