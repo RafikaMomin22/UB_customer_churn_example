@@ -1,44 +1,66 @@
 {
-    "accuracy": 0.485,
-    "precision": 0.5555555555555556,
-    "recall": 0.09523809523809523,
-    "f1": 0.16260162601626016,
-    "roc_auc": 0.526015037593985,
+    "accuracy": 0.475,
+    "precision": 0.5,
+    "recall": 0.780952380952381,
+    "f1": 0.6096654275092936,
+    "roc_auc": 0.4155889724310777,
     "confusion_matrix": [
         [
-            87,
-            8
+            13,
+            82
         ],
         [
-            95,
-            10
+            23,
+            82
         ]
     ],
     "classification_report": {
         "0": {
-            "precision": 0.47802197802197804,
-            "recall": 0.9157894736842105,
-            "f1-score": 0.628158844765343,
+            "precision": 0.3611111111111111,
+            "recall": 0.1368421052631579,
+            "f1-score": 0.1984732824427481,
             "support": 95.0
         },
         "1": {
-            "precision": 0.5555555555555556,
-            "recall": 0.09523809523809523,
-            "f1-score": 0.16260162601626016,
+            "precision": 0.5,
+            "recall": 0.780952380952381,
+            "f1-score": 0.6096654275092936,
             "support": 105.0
         },
-        "accuracy": 0.485,
+        "accuracy": 0.475,
         "macro avg": {
-            "precision": 0.5167887667887668,
-            "recall": 0.5055137844611528,
-            "f1-score": 0.3953802353908016,
+            "precision": 0.4305555555555556,
+            "recall": 0.4588972431077694,
+            "f1-score": 0.40406935497602087,
             "support": 200.0
         },
         "weighted avg": {
-            "precision": 0.5187271062271063,
-            "recall": 0.485,
-            "f1-score": 0.3837413049220745,
+            "precision": 0.4340277777777778,
+            "recall": 0.475,
+            "f1-score": 0.41434915860268445,
             "support": 200.0
         }
-    }
+    },
+    "top_shap_features": [
+        {
+            "feature": "Average_Transaction_Amount",
+            "shap_importance": 0.06420852671743693
+        },
+        {
+            "feature": "Age",
+            "shap_importance": 0.04959926119417712
+        },
+        {
+            "feature": "Num_of_Returns",
+            "shap_importance": 0.03255885036617352
+        },
+        {
+            "feature": "Total_Spend",
+            "shap_importance": 0.026754796324308706
+        },
+        {
+            "feature": "Annual_Income",
+            "shap_importance": 0.023043301860558828
+        }
+    ]
 }

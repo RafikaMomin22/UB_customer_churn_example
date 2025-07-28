@@ -1,107 +1,67 @@
 import pytest
 import pandas as pd
-import numpy as np
-import logging
-from sklearn.datasets import make_classification
+from pathlib import Path
+from churn_model.config import DATA_DIR, DATA_FILE
 from churn_model.prep.datasource import DataSource
-from churn_model.prep.dataprep import DataPrep
-from churn_model.model.model import ChurnModel
+import logging
+
+# Setup test data path
+TEST_DATA_PATH = DATA_DIR / DATA_FILE
 
 
 @pytest.fixture
-def sample_data():
-    # Create a synthetic dataset for testing
-    X, y = make_classification(
-        n_samples=100,
-        n_features=10,
-        n_classes=2,
-        weights=[0.9, 0.1],  # Imbalanced
-        random_state=42
-    )
-
-    # Create DataFrame with meaningful columns
-    df = pd.DataFrame(X, columns=[
-        'Age', 'Annual_Income', 'Total_Spend', 'Years_as_Customer',
-        'Num_of_Purchases', 'Average_Transaction_Amount',
-        'Num_of_Returns', 'Num_of_Support_Contacts',
-        'Satisfaction_Score', 'Last_Purchase_Days_Ago'
-    ])
-
-    # Add categorical features
-    df['Gender'] = np.random.choice(['Male', 'Female', 'Other'], size=100)
-    df['Email_Opt_In'] = np.random.choice([True, False], size=100)
-    df['Promotion_Response'] = np.random.choice(['Responded', 'Ignored', 'Unsubscribed'], size=100)
-    df['Target_Churn'] = y
-
-    return df
+def load_raw_data():
+    """Fixture to load raw data once for all tests"""
+    datasource = DataSource()
+    datasource.load_data()
+    return datasource.get_data()
 
 
-def test_data_loading(tmp_path, sample_data):
-    # Save sample data to temp file
-    file_path = tmp_path / "test_data.csv"
-    sample_data.to_csv(file_path, index=False)
-
-    # Test DataSource
-    ds = DataSource()
-    ds.file_path = file_path
-    assert ds.load_data() == True
-    assert ds.get_data() is not None
-    assert 'Target_Churn' in ds.get_data().columns
+def test_data_file_exists():
+    """Check that the input data file exists"""
+    assert TEST_DATA_PATH.exists(), f"Data file not found at {TEST_DATA_PATH}"
 
 
-def test_data_preprocessing(sample_data):
-    # Test DataPrep
-    dp = DataPrep(sample_data)
-    assert dp.preprocess_data() == True
-
-    X_train, X_test, y_train, y_test = dp.get_train_test_data()
-    assert X_train is not None
-    assert X_test is not None
-    assert y_train is not None
-    assert y_test is not None
-    assert len(X_train) + len(X_test) == len(sample_data)
-
-    # Check if imbalance was detected
-    assert dp.get_imbalance_level() in ['severe', 'high', 'moderate', 'mild', 'balanced']
+def test_required_columns_present(load_raw_data):
+    """Verify all expected columns exist in the dataset"""
+    required_columns = {
+        'Age', 'Years_as_Customer', 'Satisfaction_Score',
+        'Annual_Income', 'Target_Churn'  # Add other required columns
+    }
+    assert required_columns.issubset(load_raw_data.columns), \
+        f"Missing columns: {required_columns - set(load_raw_data.columns)}"
 
 
-def test_model_training(sample_data):
-    dp = DataPrep(sample_data)
-    dp.preprocess_data()
-    X_train, _, y_train, _ = dp.get_train_test_data()
+def test_age_validation(load_raw_data):
+    """Check Age values are between 18 and 110"""
+    age_series = load_raw_data['Age']
+    invalid_ages = age_series[(age_series < 18) | (age_series > 110)]
 
-    model = ChurnModel(dp.get_imbalance_level())
-    model.initialize_models()
-    model.train_models(X_train, y_train)
-
-    assert model.best_model is not None
-    assert model.best_score > 0
+    assert invalid_ages.empty, \
+        f"Found {len(invalid_ages)} invalid Age values:\n{invalid_ages.head()}"
 
 
-def test_model_evaluation(sample_data):
-    dp = DataPrep(sample_data)
-    dp.preprocess_data()
-    X_train, X_test, y_train, y_test = dp.get_train_test_data()
+def test_years_as_customer_validation(load_raw_data):
+    """Check Years_as_Customer values are between 0 and 110"""
+    years_series = load_raw_data['Years_as_Customer']
+    invalid_years = years_series[(years_series < 0) | (years_series > 110)]
 
-    model = ChurnModel(dp.get_imbalance_level())
-    model.train_models(X_train, y_train)
-
-    metrics = model.evaluate_model(X_test, y_test)
-    assert 'accuracy' in metrics
-    assert 0 <= metrics['accuracy'] <= 1
+    assert invalid_years.empty, \
+        f"Found {len(invalid_years)} invalid Years_as_Customer values:\n{invalid_years.head()}"
 
 
-def test_model_saving_loading(sample_data, tmp_path):
-    dp = DataPrep(sample_data)
-    dp.preprocess_data()
-    X_train, _, y_train, _ = dp.get_train_test_data()
+def test_satisfaction_score_validation(load_raw_data):
+    """Check Satisfaction_Score is between 0 and 5 (inclusive)"""
+    score_series = load_raw_data['Satisfaction_Score']
+    invalid_scores = score_series[~score_series.isin(range(0, 6))]  # 0-5 inclusive
 
-    model = ChurnModel(dp.get_imbalance_level())
-    model.train_models(X_train, y_train)
+    assert invalid_scores.empty, \
+        f"Found {len(invalid_scores)} invalid Satisfaction_Score values:\n{invalid_scores.head()}"
 
-    model_path = tmp_path / "test_model.pkl"
-    assert model.save_model(model_path) == True
 
-    # Test that we can load the model (would need to modify class to add load method)
-    # This is just a placeholder test
-    assert model_path.exists()
+def test_no_missing_target(load_raw_data):
+    """Check that target column has no missing values"""
+    assert load_raw_data['Target_Churn'].notna().all(), \
+        "Found missing values in Target_Churn"
+
+

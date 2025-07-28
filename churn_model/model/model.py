@@ -46,12 +46,12 @@ class ChurnModel:
                 'classifier__n_estimators': [100, 200],
                 'classifier__learning_rate': [0.01, 0.1],
                 'classifier__max_depth': [3, 5]
-            },
-            'SVM': {
-                'classifier__C': [0.1, 1, 10],
-                'classifier__kernel': ['linear', 'rbf'],
-                'classifier__gamma': ['scale', 'auto']
             }
+            # 'SVM': {
+            #     'classifier__C': [0.1, 1, 10],
+            #     'classifier__kernel': ['linear', 'rbf'],
+            #     'classifier__gamma': ['scale', 'auto']
+            # }
         }
 
         self.models = {
@@ -66,12 +66,12 @@ class ChurnModel:
             ),
             'Gradient Boosting': GradientBoostingClassifier(
                 random_state=RANDOM_STATE
-            ),
-            'SVM': SVC(
-                class_weight='balanced',
-                probability=True,
-                random_state=RANDOM_STATE
             )
+            # 'SVM': SVC(
+            #     class_weight='balanced',
+            #     probability=True,
+            #     random_state=RANDOM_STATE
+            # )
         }
 
     def train_with_cv(self, X_train, y_train, preprocessor):
@@ -104,7 +104,7 @@ class ChurnModel:
                     cv=cv,
                     scoring=CV_SCORING,  # Uses F1 from config
                     n_jobs=-1,
-                    verbose=1
+                    verbose=0
                 )
 
                 grid_search.fit(X_train, y_train)
