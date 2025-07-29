@@ -1,5 +1,4 @@
 import pandas as pd
-from pathlib import Path
 from churn_model.config import DATA_DIR, DATA_FILE, logging
 
 

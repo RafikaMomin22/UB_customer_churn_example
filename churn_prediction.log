@@ -1,23 +1,24 @@
-2025-07-28 21:27:58,812 - root - INFO - Starting churn prediction pipeline
-2025-07-28 21:27:58,813 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
-2025-07-28 21:27:58,814 - root - INFO - Data loaded successfully. Shape: (1000, 14)
-2025-07-28 21:27:58,815 - root - INFO - Starting data preprocessing...
-2025-07-28 21:27:58,815 - root - INFO - No missing values found in numerical columns
-2025-07-28 21:27:58,816 - root - INFO - No outliers detected in Annual_Income
-2025-07-28 21:27:58,816 - root - INFO - No outliers detected in Total_Spend
-2025-07-28 21:27:58,817 - root - INFO - No outliers detected in Average_Transaction_Amount
-2025-07-28 21:27:58,817 - root - INFO - Churn rate: 52.60% | SMOTE disabled
-2025-07-28 21:27:58,818 - root - INFO - No high correlations (> 0.8) between numerical features
-2025-07-28 21:27:59,047 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
-2025-07-28 21:27:59,053 - root - INFO - Data preprocessing completed successfully
-2025-07-28 21:27:59,053 - root - INFO - Initializing models with parameter grids
-2025-07-28 21:27:59,053 - root - INFO - Training Logistic Regression with CV...
-2025-07-28 21:27:59,841 - root - INFO - Best F1: 0.5121
-2025-07-28 21:27:59,841 - root - INFO - Training Random Forest with CV...
-2025-07-28 21:28:01,098 - root - INFO - Best F1: 0.5806
-2025-07-28 21:28:01,098 - root - INFO - Training Gradient Boosting with CV...
-2025-07-28 21:28:02,466 - root - INFO - Best F1: 0.6139
-2025-07-28 21:28:02,467 - root - INFO - Selected Gradient Boosting (F1=0.6139)
-2025-07-28 21:28:02,644 - root - INFO - Model saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/churn_model.pkl
-2025-07-28 21:28:02,644 - root - INFO - Metrics saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/metrics.json
-2025-07-28 21:28:02,644 - root - INFO - Pipeline completed successfully
+2025-07-28 22:55:31,784 - root - INFO - Starting churn prediction pipeline
+2025-07-28 22:55:31,784 - root - INFO - Loading data from /Users/rafikamomin/PycharmProjects/churn_example/churn_model/data/inputs/online_retail_customer_churn.csv
+2025-07-28 22:55:31,786 - root - INFO - Data loaded successfully. Shape: (1000, 14)
+2025-07-28 22:55:31,786 - root - INFO - Starting data preprocessing...
+2025-07-28 22:55:31,787 - root - INFO - No missing values found in numerical columns
+2025-07-28 22:55:31,787 - root - INFO - No outliers detected in Annual_Income
+2025-07-28 22:55:31,788 - root - INFO - No outliers detected in Total_Spend
+2025-07-28 22:55:31,788 - root - INFO - No outliers detected in Average_Transaction_Amount
+2025-07-28 22:55:31,789 - root - INFO - Churn rate: 52.60% | SMOTE disabled
+2025-07-28 22:55:31,790 - root - INFO - No high correlations (> 0.8) between numerical features
+2025-07-28 22:55:32,016 - root - INFO - Saved correlation matrix plot to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/feature_correlations.png
+2025-07-28 22:55:32,022 - root - INFO - Data preprocessing completed successfully
+2025-07-28 22:55:32,022 - root - INFO - Initializing models with parameter grids
+2025-07-28 22:55:32,023 - root - INFO - Training Logistic Regression with CV...
+2025-07-28 22:55:32,776 - root - INFO - Best F1: 0.5121
+2025-07-28 22:55:32,776 - root - INFO - Training Random Forest with CV...
+2025-07-28 22:55:33,985 - root - INFO - Best F1: 0.5806
+2025-07-28 22:55:33,985 - root - INFO - Training Gradient Boosting with CV...
+2025-07-28 22:55:35,352 - root - INFO - Best F1: 0.6139
+2025-07-28 22:55:35,352 - root - INFO - Selected Gradient Boosting (F1=0.6139)
+2025-07-28 22:55:35,528 - root - INFO - SHAP Analysis completed and saved
+2025-07-28 22:55:35,529 - root - INFO - Model saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/churn_model.pkl
+2025-07-28 22:55:35,529 - root - INFO - Metrics saved to /Users/rafikamomin/PycharmProjects/churn_example/churn_model/post/metrics.json
+2025-07-28 22:55:35,529 - root - INFO - Pipeline completed successfully

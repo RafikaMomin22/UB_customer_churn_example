@@ -11,30 +11,26 @@ def main():
     # 1. Load data
     data_source = DataSource()
     orig_df = data_source.load_data()
-
     # 2. Preprocess and split
     data_prep = DataPrep(orig_df)
     x_train, x_test, y_train, y_test = data_prep.preprocess_data()
-
     # 3. Train models with CV
     churn_model = ChurnModel()
-    best_model = churn_model.train_with_cv(x_train, y_train, data_prep.preprocessor)  # For feature names
-
+    best_model = churn_model.train_with_cv(x_train, y_train, data_prep.preprocessor)
     # 4. Evaluate on test set
     metrics = churn_model.evaluate_model(x_test, y_test)
-
     # 5. SHAP analysis (optional)
     try:
-        x_test_df = pd.DataFrame(x_test, columns=data_prep.get_feature_names())
+        x_test_df = pd.DataFrame(x_test, columns=data_prep.get_feature_names())  # order maintained for col names
         shap_results = churn_model.analyze_shap(
             x_test_df,
             best_model.named_steps['classifier'] if hasattr(best_model, 'named_steps') else best_model
         )
         if shap_results is not None:
             metrics['top_shap_features'] = shap_results.to_dict('records')
+            logging.info("SHAP Analysis completed and saved")
     except Exception as e:
         logging.warning(f"SHAP skipped: {str(e)}")
-
     # 6. Save outputs
     churn_model.save_model()
     churn_model.save_metrics(metrics)

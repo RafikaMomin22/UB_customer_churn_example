@@ -87,6 +87,7 @@ class ChurnModel:
             self.initialize_models()
 
         self.preprocessor = preprocessor
+
         cv = StratifiedKFold(n_splits=NUM_CV_FOLDS,
                              shuffle=True,
                              random_state=RANDOM_STATE)
@@ -129,15 +130,15 @@ class ChurnModel:
 
     def evaluate_model(self, x_test, y_test):
         """Evaluate best model on test data using multiple metrics"""
-        y_pred = self.best_model.predict(x_test)
-        y_proba = self.best_model.predict_proba(x_test)[:, 1]
+        y_pred = self.best_model.predict(x_test)  # Gives final class (0/1). For all metrics except roc_auc.
+        y_proba = self.best_model.predict_proba(x_test)[:, 1]  # Gives probability scores. Used for roc_auc.
 
         return {
             'accuracy': accuracy_score(y_test, y_pred),
             'precision': precision_score(y_test, y_pred),
             'recall': recall_score(y_test, y_pred),
             'f1': f1_score(y_test, y_pred),  # Primary metric
-            'roc_auc': roc_auc_score(y_test, y_proba),
+            'roc_auc': roc_auc_score(y_test, y_proba),  # Needs probabilities
             'confusion_matrix': confusion_matrix(y_test, y_pred).tolist(),
             'classification_report': classification_report(y_test, y_pred, output_dict=True)
         }
@@ -158,7 +159,7 @@ class ChurnModel:
                 return None
 
             # Save plots and feature importance
-            self.save_shap_outputs(x_test, shap_values, explainer)
+            self.save_shap_outputs(x_test, shap_values)
             return pd.DataFrame({
                 'feature': x_test.columns,
                 'shap_importance': np.abs(shap_values).mean(axis=0)
@@ -169,7 +170,7 @@ class ChurnModel:
             return None
 
     @staticmethod
-    def save_shap_outputs(x_test, shap_values, explainer):
+    def save_shap_outputs(x_test, shap_values):
         """Save SHAP plots and data"""
         # Summary plot
         plt.figure(figsize=(10, 6))

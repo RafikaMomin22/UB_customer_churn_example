@@ -1,16 +1,12 @@
-import pandas as pd
 import numpy as np
 import logging
 import seaborn as sns
 import matplotlib.pyplot as plt
-from pathlib import Path
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
 from imblearn.over_sampling import SMOTE
-from imblearn.pipeline import Pipeline as ImbPipeline
 from churn_model.config import (TARGET_COL, TEST_SIZE, RANDOM_STATE,
                                 IMBALANCE_THRESHOLD, CORRELATION_THRESHOLD,
                                 POST_DIR)
@@ -245,7 +241,7 @@ class DataPrep:
         return self.X_train, self.X_test, self.y_train, self.y_test
 
     def get_feature_names(self):
-        """Get all feature names after preprocessing (including one-hot encoded)"""
+        """Get all feature names after preprocessing (including one-hot encoded) for future SHAP analysis"""
         if not self.preprocessor:
             raise ValueError("Preprocessor not fitted yet")
 
