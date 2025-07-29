@@ -29,7 +29,7 @@ class DataPrep:
         self.outliers_report = None
         self.correlation_report = None
 
-    def _analyze_missing_values(self, df):
+    def analyze_missing_values(self, df):
         """Analyze and impute missing values in numerical columns only"""
         numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
         missing_values = df[numerical_cols].isnull().sum()
@@ -62,7 +62,7 @@ class DataPrep:
             logging.info("No missing values found in numerical columns")
         return df
 
-    def _handle_outliers(self, df):
+    def handle_outliers(self, df):
         """Detect and handle outliers in specific columns"""
         outlier_columns = ['Annual_Income', 'Total_Spend', 'Average_Transaction_Amount']
         self.outliers_report = {}
@@ -110,72 +110,70 @@ class DataPrep:
 
         return df
 
-    def _analyze_correlations(self, df):
+    def analyze_correlations(self, df):
         """Analyze correlations between numerical features"""
-        try:
-            # Ensure output directory exists
-            POST_DIR.mkdir(exist_ok=True)
 
-            # Select only numerical features
-            numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
-            numerical_cols = [col for col in numerical_cols if col != TARGET_COL]
+        # Ensure output directory exists
+        POST_DIR.mkdir(exist_ok=True)
 
-            if len(numerical_cols) < 2:
-                logging.warning("Not enough numerical features for correlation analysis")
-                return
+        # Select only numerical features
+        numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
+        numerical_cols = [col for col in numerical_cols if col != TARGET_COL]
 
-            # Calculate correlation matrix
-            corr_matrix = df[numerical_cols].corr()
-            self.correlation_report = {
-                'high_correlations': [],
-                'correlation_matrix': corr_matrix.to_dict(),
-                'threshold_used': CORRELATION_THRESHOLD
-            }
+        if len(numerical_cols) < 2:
+            logging.warning("Not enough numerical features for correlation analysis")
+            return
 
-            # Find high correlations (absolute value > threshold)
-            high_corr = []
-            for i in range(len(corr_matrix.columns)):
-                for j in range(i):
-                    if abs(corr_matrix.iloc[i, j]) > CORRELATION_THRESHOLD:
-                        high_corr.append({
-                            'feature1': corr_matrix.columns[i],
-                            'feature2': corr_matrix.columns[j],
-                            'correlation': round(corr_matrix.iloc[i, j], 3)
-                        })
+        # Calculate correlation matrix
+        corr_matrix = df[numerical_cols].corr()
+        self.correlation_report = {
+            'high_correlations': [],
+            'correlation_matrix': corr_matrix.to_dict(),
+            'threshold_used': CORRELATION_THRESHOLD
+        }
 
-            self.correlation_report['high_correlations'] = high_corr
+        # Find high correlations (absolute value > threshold)
+        high_corr = []
+        for i in range(len(corr_matrix.columns)):
+            for j in range(i):
+                if abs(corr_matrix.iloc[i, j]) > CORRELATION_THRESHOLD:
+                    high_corr.append({
+                        'feature1': corr_matrix.columns[i],
+                        'feature2': corr_matrix.columns[j],
+                        'correlation': round(corr_matrix.iloc[i, j], 3)
+                    })
 
-            # Log results
-            if high_corr:
-                logging.warning(f"High correlations (> {CORRELATION_THRESHOLD}) found between features:")
-                for item in high_corr:
-                    logging.warning(f" - {item['feature1']} & {item['feature2']}: {item['correlation']}")
-            else:
-                logging.info(f"No high correlations (> {CORRELATION_THRESHOLD}) between numerical features")
+        self.correlation_report['high_correlations'] = high_corr
 
-            # Visualize correlation matrix
-            plt.figure(figsize=(10, 8))
-            sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm',
-                        center=0, vmin=-1, vmax=1)
-            plt.title("Feature Correlation Matrix")
-            plot_path = POST_DIR / 'feature_correlations.png'
-            plt.savefig(plot_path)
-            plt.close()
-            logging.info(f"Saved correlation matrix plot to {plot_path}")
+        # Log results
+        if high_corr:
+            logging.warning(f"High correlations (> {CORRELATION_THRESHOLD}) found between features:")
+            for item in high_corr:
+                logging.warning(f" - {item['feature1']} & {item['feature2']}: {item['correlation']}")
+        else:
+            logging.info(f"No high correlations (> {CORRELATION_THRESHOLD}) between numerical features")
 
-        except Exception as e:
-            logging.error(f"Correlation analysis failed: {str(e)}", exc_info=True)
+        # Visualize correlation matrix
+        plt.figure(figsize=(10, 8))
+        sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm',
+                    center=0, vmin=-1, vmax=1)
+        plt.title("Feature Correlation Matrix")
+        plot_path = POST_DIR / 'feature_correlations.png'
+        plt.savefig(plot_path)
+        plt.close()
+        logging.info(f"Saved correlation matrix plot to {plot_path}")
 
-    def _check_imbalance(self):
+    def check_imbalance(self):
         """Check if we need to handle imbalance with SMOTE"""
         churn_rate = self.data[TARGET_COL].mean()
         self.use_smote = churn_rate <= IMBALANCE_THRESHOLD
         logging.info(f"Churn rate: {churn_rate:.2%} | SMOTE {'enabled' if self.use_smote else 'disabled'}")
 
-    def _create_preprocessor(self, X):
+    @staticmethod
+    def create_preprocessor(inputs_df):
         """Create preprocessing pipeline with proper feature naming"""
-        numeric_features = X.select_dtypes(include=['int64', 'float64']).columns.tolist()
-        categorical_features = X.select_dtypes(include=['object', 'bool']).columns.tolist()
+        numeric_features = inputs_df.select_dtypes(include=['int64', 'float64']).columns.tolist()
+        categorical_features = inputs_df.select_dtypes(include=['object', 'bool']).columns.tolist()
 
         numeric_transformer = Pipeline(steps=[
             ('scaler', StandardScaler())
@@ -194,66 +192,57 @@ class DataPrep:
 
     def preprocess_data(self):
         """Complete preprocessing pipeline with proper ordering"""
-        try:
-            logging.info("Starting data preprocessing...")
-            df = self.data.copy()
 
-            # Step 1: Convert target to numeric
-            df[TARGET_COL] = df[TARGET_COL].astype(int)
-
-            # Step 2: Handle missing values
-            df = self._analyze_missing_values(df)
-
-            # Step 3: Handle outliers
-            df = self._handle_outliers(df)
-
-            # Step 4: Check class imbalance
-            self._check_imbalance()
-
-            # Step 5: Analyze feature correlations
-            self._analyze_correlations(df)
-
-            # Define features and target
-            X = df.drop(TARGET_COL, axis=1)
-            y = df[TARGET_COL]
-
-            # Step 6: Create preprocessor
-            self.preprocessor = self._create_preprocessor(X)
-
-            # Step 7: Split data (80/20)
-            self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-                X, y,
-                test_size=TEST_SIZE,
-                random_state=RANDOM_STATE,
-                stratify=y
-            )
-
-            # Step 8: Apply SMOTE if needed (only on training data)
-            if self.use_smote:
-                logging.info("Applying SMOTE for class imbalance")
-                smote = SMOTE(random_state=RANDOM_STATE)
-                self.X_train, self.y_train = smote.fit_resample(
-                    self.preprocessor.fit_transform(self.X_train),
-                    self.y_train
-                )
-            else:
-                self.X_train = self.preprocessor.fit_transform(self.X_train)
-
-            # Transform test data (no fitting)
-            self.X_test = self.preprocessor.transform(self.X_test)
-
-            logging.info("Data preprocessing completed successfully")
-            return True
-
-        except Exception as e:
-            logging.error(f"Preprocessing failed: {str(e)}", exc_info=True)
-            return False
-
-    def get_all_data(self):
-        """Return all preprocessed data before train/test split"""
+        logging.info("Starting data preprocessing...")
         df = self.data.copy()
+
+        # Step 1: Convert target to numeric
         df[TARGET_COL] = df[TARGET_COL].astype(int)
-        return df.drop(TARGET_COL, axis=1), df[TARGET_COL]
+
+        # Step 2: Handle missing values
+        df = self.analyze_missing_values(df)
+
+        # Step 3: Handle outliers
+        df = self.handle_outliers(df)
+
+        # Step 4: Check class imbalance
+        self.check_imbalance()
+
+        # Step 5: Analyze feature correlations
+        self.analyze_correlations(df)
+
+        # Define features and target
+        inputs_df = df.drop(TARGET_COL, axis=1)  # df of independent variables
+        target_df = df[TARGET_COL]
+
+        # Step 6: Create preprocessor
+        self.preprocessor = self.create_preprocessor(inputs_df)
+
+        # Step 7: Split data (80/20)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+            inputs_df, target_df,
+            test_size=TEST_SIZE,
+            random_state=RANDOM_STATE,
+            stratify=target_df
+        )
+
+        # Step 8: Apply SMOTE if needed (only on training data)
+        if self.use_smote:
+            logging.info("Applying SMOTE for class imbalance")
+            smote = SMOTE(random_state=RANDOM_STATE)
+            self.X_train, self.y_train = smote.fit_resample(
+                self.preprocessor.fit_transform(self.X_train),
+                self.y_train
+            )
+        else:
+            self.X_train = self.preprocessor.fit_transform(self.X_train)
+
+        # Transform test data (no fitting)
+        self.X_test = self.preprocessor.transform(self.X_test)
+
+        logging.info("Data preprocessing completed successfully")
+
+        return self.X_train, self.X_test, self.y_train, self.y_test
 
     def get_feature_names(self):
         """Get all feature names after preprocessing (including one-hot encoded)"""
@@ -270,19 +259,3 @@ class DataPrep:
         )
 
         return list(numeric_features) + list(categorical_features)
-
-    def get_train_test_data(self):
-        """Return preprocessed train and test data"""
-        return self.X_train, self.X_test, self.y_train, self.y_test
-
-    def get_missing_values_report(self):
-        """Return the missing values analysis report (numerical only)"""
-        return self.missing_values_report
-
-    def get_outliers_report(self):
-        """Return the outliers treatment report"""
-        return self.outliers_report
-
-    def get_correlation_report(self):
-        """Return the feature correlation report"""
-        return self.correlation_report

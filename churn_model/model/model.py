@@ -7,7 +7,6 @@ import pickle
 import json
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.svm import SVC
 from sklearn.metrics import (accuracy_score, precision_score, recall_score,
                              f1_score, roc_auc_score, confusion_matrix,
                              classification_report)
@@ -74,11 +73,11 @@ class ChurnModel:
             # )
         }
 
-    def train_with_cv(self, X_train, y_train, preprocessor):
+    def train_with_cv(self, x_train, y_train, preprocessor):
         """
         Train models using GridSearchCV with F1-based evaluation.
         Args:
-            X_train: Preprocessed training features (numpy array)
+            x_train: Preprocessed training features (numpy array)
             y_train: Training labels
             preprocessor: Fitted ColumnTransformer for feature names
         Returns:
@@ -94,7 +93,7 @@ class ChurnModel:
 
         for name, model in self.models.items():
             try:
-                logging.info(f"\nTraining {name} with CV...")
+                logging.info(f"Training {name} with CV...")
 
                 pipeline = Pipeline([('classifier', model)])
 
@@ -107,7 +106,7 @@ class ChurnModel:
                     verbose=0
                 )
 
-                grid_search.fit(X_train, y_train)
+                grid_search.fit(x_train, y_train)
 
                 self.cv_scores[name] = {
                     'best_score': grid_search.best_score_,
@@ -125,16 +124,13 @@ class ChurnModel:
             except Exception as e:
                 logging.error(f"CV failed for {name}: {str(e)}")
 
-        logging.info(f"\nSelected {self.best_model_name} (F1={self.best_score:.4f})")
+        logging.info(f"Selected {self.best_model_name} (F1={self.best_score:.4f})")
         return self.best_model
 
-    def evaluate_model(self, X_test, y_test):
+    def evaluate_model(self, x_test, y_test):
         """Evaluate best model on test data using multiple metrics"""
-        if not self.best_model:
-            raise ValueError("No trained model available")
-
-        y_pred = self.best_model.predict(X_test)
-        y_proba = self.best_model.predict_proba(X_test)[:, 1]
+        y_pred = self.best_model.predict(x_test)
+        y_proba = self.best_model.predict_proba(x_test)[:, 1]
 
         return {
             'accuracy': accuracy_score(y_test, y_pred),
@@ -146,25 +142,25 @@ class ChurnModel:
             'classification_report': classification_report(y_test, y_pred, output_dict=True)
         }
 
-    def _analyze_shap(self, X_test, model):
+    def analyze_shap(self, x_test, model):
         """Generate SHAP explanations (test data only)"""
         try:
             if isinstance(model, (RandomForestClassifier, GradientBoostingClassifier)):
                 explainer = shap.TreeExplainer(model)
-                shap_values = explainer.shap_values(X_test)
+                shap_values = explainer.shap_values(x_test)
                 if isinstance(shap_values, list):
                     shap_values = shap_values[1]  # Use positive class
             elif isinstance(model, LogisticRegression):
-                explainer = shap.LinearExplainer(model, X_test)
-                shap_values = explainer.shap_values(X_test)
+                explainer = shap.LinearExplainer(model, x_test)
+                shap_values = explainer.shap_values(x_test)
             else:
                 logging.warning(f"SHAP not supported for {type(model).__name__}")
                 return None
 
             # Save plots and feature importance
-            self._save_shap_outputs(X_test, shap_values, explainer)
+            self.save_shap_outputs(x_test, shap_values, explainer)
             return pd.DataFrame({
-                'feature': X_test.columns,
+                'feature': x_test.columns,
                 'shap_importance': np.abs(shap_values).mean(axis=0)
             }).sort_values('shap_importance', ascending=False).head(5)
 
@@ -172,22 +168,17 @@ class ChurnModel:
             logging.error(f"SHAP failed: {str(e)}")
             return None
 
-    def _save_shap_outputs(self, X_test, shap_values, explainer):
+    @staticmethod
+    def save_shap_outputs(x_test, shap_values, explainer):
         """Save SHAP plots and data"""
-        POST_DIR.mkdir(exist_ok=True)
-
         # Summary plot
         plt.figure(figsize=(10, 6))
-        shap.summary_plot(shap_values, X_test, show=False)
+        shap.summary_plot(shap_values, x_test, show=False)
         plt.savefig(POST_DIR / 'shap_summary.png', bbox_inches='tight')
         plt.close()
 
     def save_model(self, file_name='churn_model.pkl'):
         """Save best model to disk"""
-        if not self.best_model:
-            raise ValueError("No model to save")
-
-        POST_DIR.mkdir(exist_ok=True)
         with open(POST_DIR / file_name, 'wb') as f:
             pickle.dump({
                 'model': self.best_model,
@@ -199,9 +190,9 @@ class ChurnModel:
             }, f)
         logging.info(f"Model saved to {POST_DIR / file_name}")
 
-    def save_metrics(self, metrics, file_name='metrics.json'):
+    @staticmethod
+    def save_metrics(metrics, file_name='metrics.json'):
         """Save evaluation metrics"""
-        POST_DIR.mkdir(exist_ok=True)
         with open(POST_DIR / file_name, 'w') as f:
             json.dump(metrics, f, indent=4)
         logging.info(f"Metrics saved to {POST_DIR / file_name}")
