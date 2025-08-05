@@ -130,7 +130,7 @@ class ChurnModel:
 
     def evaluate_model(self, x_test, y_test):
         """Evaluate best model on test data using multiple metrics"""
-        y_pred = self.best_model.predict(x_test)  # Gives final class (0/1). For all metrics except roc_auc.
+        y_pred = self.best_model.predict(x_test)  # Gives final class (0/1) used for all metrics except roc_auc.
         y_proba = self.best_model.predict_proba(x_test)[:, 1]  # Gives probability scores. Used for roc_auc.
 
         return {

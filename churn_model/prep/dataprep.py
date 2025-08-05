@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import logging
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -106,21 +107,27 @@ class DataPrep:
 
         return df
 
-    def analyze_correlations(self, df):
-        """Analyze correlations between numerical features"""
+    def check_imbalance(self, y_train):
+        """Check if we need to handle imbalance with SMOTE"""
+        churn_rate = y_train.mean()
+        self.use_smote = churn_rate <= IMBALANCE_THRESHOLD
+        logging.info(f"Churn rate: {churn_rate:.2%} | SMOTE {'enabled' if self.use_smote else 'disabled'}")
 
-        # Ensure output directory exists
-        POST_DIR.mkdir(exist_ok=True)
+    def analyze_correlations(self, x_train_transformed, feature_names):
+        """Analyze correlations between numerical features after preprocessing"""
+        df = pd.DataFrame(x_train_transformed, columns=feature_names)
 
-        # Select only numerical features
-        numerical_cols = df.select_dtypes(include=['int64', 'float64']).columns
-        numerical_cols = [col for col in numerical_cols if col != TARGET_COL]
+        # Robust exclusion of one-hot encoded features
+        numerical_cols = [
+            col for col in df.columns
+            # Exclude any column that looks like one-hot encoded:
+            if not (col.startswith(('cat__', 'bool__')) or  # sklearn default pattern
+                    ('_' in col and col.split('_')[-1] in ['True', 'False', 'Yes', 'No']))]  # common binary encodings
 
         if len(numerical_cols) < 2:
             logging.warning("Not enough numerical features for correlation analysis")
             return
 
-        # Calculate correlation matrix
         corr_matrix = df[numerical_cols].corr()
         self.correlation_report = {
             'high_correlations': [],
@@ -132,11 +139,12 @@ class DataPrep:
         high_corr = []
         for i in range(len(corr_matrix.columns)):
             for j in range(i):
-                if abs(corr_matrix.iloc[i, j]) > CORRELATION_THRESHOLD:
+                corr_value = corr_matrix.iloc[i, j]
+                if abs(corr_value) > CORRELATION_THRESHOLD:
                     high_corr.append({
                         'feature1': corr_matrix.columns[i],
                         'feature2': corr_matrix.columns[j],
-                        'correlation': round(corr_matrix.iloc[i, j], 3)
+                        'correlation': round(corr_value, 3)
                     })
 
         self.correlation_report['high_correlations'] = high_corr
@@ -153,17 +161,11 @@ class DataPrep:
         plt.figure(figsize=(10, 8))
         sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='coolwarm',
                     center=0, vmin=-1, vmax=1)
-        plt.title("Feature Correlation Matrix")
+        plt.title("Feature Correlation Matrix (Original Numerical Features)")
         plot_path = POST_DIR / 'feature_correlations.png'
         plt.savefig(plot_path)
         plt.close()
         logging.info(f"Saved correlation matrix plot to {plot_path}")
-
-    def check_imbalance(self):
-        """Check if we need to handle imbalance with SMOTE"""
-        churn_rate = self.data[TARGET_COL].mean()
-        self.use_smote = churn_rate <= IMBALANCE_THRESHOLD
-        logging.info(f"Churn rate: {churn_rate:.2%} | SMOTE {'enabled' if self.use_smote else 'disabled'}")
 
     @staticmethod
     def create_preprocessor(inputs_df):
@@ -171,13 +173,10 @@ class DataPrep:
         numeric_features = inputs_df.select_dtypes(include=['int64', 'float64']).columns.tolist()
         categorical_features = inputs_df.select_dtypes(include=['object', 'bool']).columns.tolist()
 
-        numeric_transformer = Pipeline(steps=[
-            ('scaler', StandardScaler())
-        ])
+        numeric_transformer = Pipeline(steps=[('scaler', StandardScaler())])
 
-        categorical_transformer = Pipeline(steps=[
-            ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
-        ])
+        categorical_transformer = Pipeline(steps=[('onehot', OneHotEncoder(handle_unknown='ignore',
+                                                                           sparse_output=False))])
 
         return ColumnTransformer(
             transformers=[
@@ -188,33 +187,16 @@ class DataPrep:
 
     def preprocess_data(self):
         """Complete preprocessing pipeline with proper ordering"""
-
         logging.info("Starting data preprocessing...")
         df = self.data.copy()
 
         # Step 1: Convert target to numeric
         df[TARGET_COL] = df[TARGET_COL].astype(int)
 
-        # Step 2: Handle missing values
-        df = self.analyze_missing_values(df)
-
-        # Step 3: Handle outliers
-        df = self.handle_outliers(df)
-
-        # Step 4: Check class imbalance
-        self.check_imbalance()
-
-        # Step 5: Analyze feature correlations
-        self.analyze_correlations(df)
-
-        # Define features and target
-        inputs_df = df.drop(TARGET_COL, axis=1)  # df of independent variables
+        # Step 2: Split data first to prevent leakage
+        inputs_df = df.drop(TARGET_COL, axis=1)
         target_df = df[TARGET_COL]
 
-        # Step 6: Create preprocessor
-        self.preprocessor = self.create_preprocessor(inputs_df)
-
-        # Step 7: Split data (80/20)
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
             inputs_df, target_df,
             test_size=TEST_SIZE,
@@ -222,26 +204,40 @@ class DataPrep:
             stratify=target_df
         )
 
-        # Step 8: Apply SMOTE if needed (only on training data)
+        # Step 3: Handle missing values (train and test separately)
+        self.X_train = self.analyze_missing_values(self.X_train)
+        self.X_test = self.analyze_missing_values(self.X_test)
+
+        # Step 4: Handle outliers (train and test separately)
+        self.X_train = self.handle_outliers(self.X_train)
+        self.X_test = self.handle_outliers(self.X_test)
+
+        # Step 5: Check class imbalance (training set only)
+        self.check_imbalance(self.y_train)
+
+        # Step 6: Create and fit preprocessor on training data only
+        self.preprocessor = self.create_preprocessor(self.X_train)
+        x_train_transformed = self.preprocessor.fit_transform(self.X_train)
+        x_test_transformed = self.preprocessor.transform(self.X_test)
+
+        # Step 7: Apply SMOTE if needed (only on training data)
         if self.use_smote:
             logging.info("Applying SMOTE for class imbalance")
             smote = SMOTE(random_state=RANDOM_STATE)
-            self.X_train, self.y_train = smote.fit_resample(
-                self.preprocessor.fit_transform(self.X_train),
+            x_train_transformed, self.y_train = smote.fit_resample(
+                x_train_transformed,
                 self.y_train
             )
-        else:
-            self.X_train = self.preprocessor.fit_transform(self.X_train)
 
-        # Transform test data (no fitting)
-        self.X_test = self.preprocessor.transform(self.X_test)
+        # Step 8: Analyze correlations (post-preprocessing, training data only)
+        feature_names = self.get_feature_names()
+        self.analyze_correlations(x_train_transformed, feature_names)
 
         logging.info("Data preprocessing completed successfully")
-
-        return self.X_train, self.X_test, self.y_train, self.y_test
+        return x_train_transformed, x_test_transformed, self.y_train, self.y_test
 
     def get_feature_names(self):
-        """Get all feature names after preprocessing (including one-hot encoded) for future SHAP analysis"""
+        """Get all feature names after preprocessing (including one-hot encoded)"""
         if not self.preprocessor:
             raise ValueError("Preprocessor not fitted yet")
 
